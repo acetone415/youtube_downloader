@@ -1,8 +1,14 @@
-from pytube import YouTube
 import os
+import argparse
 
-# Insert here link to video to download 
-yt = YouTube('')
+from pytube import YouTube
+
+parser = argparse.ArgumentParser(
+    description='This script downloads mp3 audio from Youtube video')
+parser.add_argument('link', help='Link to Youtube video')
+args = parser.parse_args()
+
+yt = YouTube(args.link)
 
 # Selecting and downoading audio track from video
 video = yt.streams.filter(only_audio=True).first()
