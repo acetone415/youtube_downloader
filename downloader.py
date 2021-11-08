@@ -6,13 +6,15 @@ from pytube import YouTube
 parser = argparse.ArgumentParser(
     description='This script downloads mp3 audio from Youtube video')
 parser.add_argument('link', help='Link to Youtube video')
+parser.add_argument('-d', '--dir', help='Directory for output file',
+                    default='.')
 args = parser.parse_args()
 
 yt = YouTube(args.link)
 
 # Selecting and downoading audio track from video
 video = yt.streams.filter(only_audio=True).first()
-out_file = video.download(output_path=".")
+out_file = video.download(output_path=args.dir)
 
 # Reformating mp4 audio to mp3
 base, ext = os.path.splitext(out_file)
